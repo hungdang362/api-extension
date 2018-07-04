@@ -1,0 +1,23 @@
+{
+  "name": "api-extension",
+  "private": true,
+  "version": "2.0.0",
+  "description": "EXE API-Extension",
+  "scripts": {
+    "postinstall": "tsc --project source --outDir dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=8.11.3"
+  },
+  "dependencies": {
+    "@types/node": "~10.5.1",
+    "api-framework": "git+ssh://git@bitbucket.exe.com.vn:7999/ec/api-framework.git#v2.x",
+    "eureka-js-client": "~4.4.0",
+    "resilient": "~0.4.0"
+  },
+  "devDependencies": {
+    "typescript": "~2.8.0"
+  }
+}

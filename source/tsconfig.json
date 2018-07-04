@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "noEmitHelpers": true,
+        "noEmitOnError": true,
+        "lib": [
+            "dom",
+            "es2018"
+        ],
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es2018"
+    }
+}
