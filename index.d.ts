@@ -1,6 +1,6 @@
 declare namespace extenstion {
 
-    class Actuator{
+    class Actuator {
         // Empty
     }
 
@@ -38,6 +38,18 @@ declare namespace extenstion {
 
         service(name: string): Service | null;
     }
+
+    namespace Swagger {
+        function Document(doc);
+
+        class Controller { }
+
+        abstract class Swagger {
+            register(target)
+        }
+    }
+
+
 
 }
 

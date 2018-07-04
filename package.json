@@ -12,16 +12,21 @@
     "node": ">=8.11.3"
   },
   "dependencies": {
+    "@types/bcrypt": "~2.0.0",
     "@types/handlebars": "~4.0.38",
     "@types/html-pdf": "~2.1.2",
     "@types/lodash": "~4.14.110",
     "@types/node": "~10.5.1",
     "@types/nodemailer": "~4.6.2",
+    "@types/reflect-metadata": "~0.1.0",
     "api-framework": "git+ssh://git@bitbucket.exe.com.vn:7999/ec/api-framework.git#v2.x",
+    "bcrypt": "~2.0.1",
     "eureka-js-client": "~4.4.0",
     "handlebars": "~4.0.11",
     "html-pdf": "~2.2.0",
+    "json-schema-ref-parser": "^5.0.3",
     "nodemailer": "~4.6.7",
+    "reflect-metadata": "~0.1.12",
     "resilient": "~0.4.0"
   },
   "devDependencies": {

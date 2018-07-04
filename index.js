@@ -7,3 +7,5 @@ function exportAll(module) {
 
 exportAll('./dist/controller/Actuator.js');
 exportAll('./dist/network/MicroService.js');
+
+exports['Swagger'] = require('./dist/plugins/swagger');
