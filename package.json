@@ -12,9 +12,16 @@
     "node": ">=8.11.3"
   },
   "dependencies": {
+    "@types/handlebars": "~4.0.38",
+    "@types/html-pdf": "~2.1.2",
+    "@types/lodash": "~4.14.110",
     "@types/node": "~10.5.1",
+    "@types/nodemailer": "~4.6.2",
     "api-framework": "git+ssh://git@bitbucket.exe.com.vn:7999/ec/api-framework.git#v2.x",
     "eureka-js-client": "~4.4.0",
+    "handlebars": "~4.0.11",
+    "html-pdf": "~2.2.0",
+    "nodemailer": "~4.6.7",
     "resilient": "~0.4.0"
   },
   "devDependencies": {
