@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "description": "EXE API-Extension",
   "scripts": {
+    "preinstall": "npm link ../api-framework",
     "postinstall": "tsc --project source --outDir dist"
   },
   "author": "",
@@ -19,7 +20,7 @@
     "@types/node": "~10.5.1",
     "@types/nodemailer": "~4.6.2",
     "@types/reflect-metadata": "~0.1.0",
-    "api-framework": "git+ssh://git@bitbucket.exe.com.vn:7999/ec/api-framework.git#v2.x",
+    "api-framework": "*",
     "bcrypt": "~2.0.1",
     "eureka-js-client": "~4.4.0",
     "handlebars": "~4.0.11",
