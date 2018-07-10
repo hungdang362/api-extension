@@ -47,6 +47,8 @@ declare namespace extenstion {
         abstract class Swagger {
             register(target)
         }
+
+        function EnableSwagger(prefix?: string)
     }
 
 

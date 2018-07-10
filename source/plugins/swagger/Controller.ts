@@ -1,5 +1,5 @@
 import { autoInject, ConfigContract, Environment, Context } from 'api-framework'
-import { Router, Http } from 'api-framework/network';
+import { Router, Http } from 'api-framework';
 
 import { Swagger } from './Register';
 

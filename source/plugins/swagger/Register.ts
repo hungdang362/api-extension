@@ -1,4 +1,4 @@
-import { autoInject, ConfigContract } from 'api-framework';
+import { autoInject, ConfigContract, Logger } from 'api-framework';
 import * as Parser from 'json-schema-ref-parser';
 import * as _ from 'path';
 
@@ -16,22 +16,42 @@ export class Swagger {
     private prefix: string;
     public docs = {};
 
-    constructor(config: ConfigContract) {
-        this.prefix = config.source.path;
-    }
 
-    async register(target) {
-        const { prefix, docs } = this;
-        const list = DocMetaData.get(target);
+    async register(target, prefix = '') {
 
-        for (const { doc, path, method } of list.values()) {
+        const { docs } = this;
+        const metaData = DocMetaData.get(target);
 
-            const data = await (Parser as any).dereference(_.join(prefix, doc));
+        for (const { doc, path, method } of metaData.values()) {
+
+            const data = await (Parser as any).dereference(_.resolve(_.join(prefix, doc)));
 
             docs[path] = docs[path] || {};
             docs[path][method] = data;
         }
 
+    }
+
+}
+
+export function EnableSwagger(prefix = 'source') {
+
+    return function <T extends { new(...args) }>(constructor: T) {
+
+        return class extends constructor {
+
+            constructor(...args) {
+                super(...args);
+
+                const injector = (global as any).__injector;
+                if (!injector) {
+                    injector.get(Logger).error('[Injector] Swagger Instance not found.')
+                    return;
+                }
+
+                injector.get(Swagger).register(this, prefix);
+            }
+        }
     }
 
 }
