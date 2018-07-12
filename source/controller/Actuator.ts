@@ -1,6 +1,5 @@
-import { autoInject, ConfigContract, Environment, Logger, Context } from 'api-framework'
+import { autoInject, ConfigContract, Environment, Logger, Context, Router, Http } from 'api-framework'
 import { MicroService } from '../network/MicroService';
-import { Router, Http } from 'api-framework/network';
 
 import * as fs from 'fs';
 
