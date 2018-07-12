@@ -19,7 +19,6 @@
     "@types/lodash": "~4.14.110",
     "@types/node": "~10.5.1",
     "@types/nodemailer": "~4.6.2",
-    "@types/reflect-metadata": "~0.1.0",
     "api-framework": "*",
     "bcrypt": "~2.0.1",
     "eureka-js-client": "~4.4.0",
