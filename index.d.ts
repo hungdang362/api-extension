@@ -1,9 +1,5 @@
 declare namespace extenstion {
 
-    class Actuator {
-        // Empty
-    }
-
     interface Service {
         get(service: string, option?: Option);
         post(service: string, option?: Option);
@@ -51,7 +47,11 @@ declare namespace extenstion {
         function EnableSwagger(prefix?: string)
     }
 
+    namespace Actuator {
 
+        class Loader { }
+
+    }
 
 }
 

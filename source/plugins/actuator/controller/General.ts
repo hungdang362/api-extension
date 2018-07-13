@@ -1,10 +1,10 @@
-import { autoInject, ConfigContract, Environment, Logger, Context, Router, Http } from 'api-framework'
-import { MicroService } from '../network/MicroService';
+import { autoInject, ConfigContract, Environment, Logger, Context, Router, Http, Controller } from 'api-framework'
+import { MicroService } from '../../../network/MicroService';
 
 import * as fs from 'fs';
 
-@autoInject
-export class Actuator {
+@Controller()
+export class General {
 
     constructor(
         private readonly config: ConfigContract,
@@ -29,7 +29,9 @@ export class Actuator {
                 self: { href: `${base}/actuator`, templated: false },
                 health: { href: `${base}/actuator/health`, templated: false },
                 info: { href: `${base}/actuator/info`, templated: false },
-                logfile: { href: `${base}/actuator/logfile`, templated: false }
+                logfile: { href: `${base}/actuator/logfile`, templated: false },
+                metrics: { href: `${base}/actuator/metrics`, templated: false },
+                'metrics-requiredMetricName': { href: `${base}/actuator/metrics/{requiredMetricName}`, templated: false }
             }
         };
     }

@@ -2,6 +2,7 @@ import { Eureka as Client } from 'eureka-js-client'
 import { ConfigContract, autoInject, Logger } from 'api-framework';
 
 import resilient = require('resilient');
+import { firstNonLoopback, hostName } from './NicsHelper';
 
 @autoInject
 export class MicroService {
@@ -22,32 +23,22 @@ export class MicroService {
         const { listen, registry: { eureka: { instance, server: { proto = 'http' } } } } = config;
 
         this.instanceConfig = {
-            hostName: instance.host || listen.host,
-            ipAddr: instance.addr || listen.addr,
+            hostName: instance.host || hostName(),
+            ipAddr: instance.addr || firstNonLoopback().address,
             port: instance.port || listen.port
         };
 
         this.instanceId = `${config.listen.addr}:${config.name}:${config.listen.port}`;
         this.homePageUrl = `${proto}://${config.listen.addr}:${config.listen.port}`;
 
-        process.on('SIGINT', () => {
-            this.stop();
-            setTimeout(function () { process.exit(); }, 500);
-        });
-
         this.init();
         this.start();
     }
 
-
     init() {
 
         const { config, homePageUrl, instanceId, logger } = this;
-        const {
-            'name': app, listen,
-            registry: { eureka: { instance, server } }
-        } = config;
-
+        const { 'name': app, registry: { eureka: { instance, server } } } = config;
         const { hostName, ipAddr, port } = this.instanceConfig;
 
         this.client = new Client({
@@ -67,9 +58,9 @@ export class MicroService {
                     'management.address': ipAddr,
                     'management.port': port
                 },
-                homePageUrl: homePageUrl.concat('/'),
-                healthCheckUrl: homePageUrl.concat('/', 'health'),
-                statusPageUrl: homePageUrl.concat('/', 'info'),
+                homePageUrl: `${homePageUrl}/`,
+                healthCheckUrl: `${homePageUrl}/health`,
+                statusPageUrl: `${homePageUrl}/info`,
                 leaseInfo: {
                     renewalIntervalInSecs: instance.renewalIntervalInSecs,
                     durationInSecs: instance.durationInSecs
