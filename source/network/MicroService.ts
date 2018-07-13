@@ -30,7 +30,7 @@ export class MicroService {
             port: instance.port || listen.port
         };
 
-        this.instanceId = `${config.listen.addr}:${config.name}:${config.listen.port}`;
+        this.instanceId = `${this.instanceConfig.ipAddr}:${config.name}:${config.listen.port}`;
         this.homePageUrl = `${proto}://${this.instanceConfig.ipAddr}:${config.listen.port}`;
 
         this.init();
