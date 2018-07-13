@@ -22,14 +22,16 @@ export class MicroService {
 
         const { listen, registry: { eureka: { instance, server: { proto = 'http' } } } } = config;
 
+        const defaultIP = firstNonLoopback().address;
+
         this.instanceConfig = {
-            hostName: instance.host || hostName(),
-            ipAddr: instance.addr || firstNonLoopback().address,
+            hostName: instance.host || defaultIP,
+            ipAddr: instance.addr || defaultIP,
             port: instance.port || listen.port
         };
 
         this.instanceId = `${config.listen.addr}:${config.name}:${config.listen.port}`;
-        this.homePageUrl = `${proto}://${config.listen.addr}:${config.listen.port}`;
+        this.homePageUrl = `${proto}://${this.instanceConfig.ipAddr}:${config.listen.port}`;
 
         this.init();
         this.start();
