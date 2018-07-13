@@ -10,12 +10,7 @@ export class General {
         private readonly config: ConfigContract,
         private readonly microService: MicroService,
         private readonly logger: Logger,
-        router: Router
-    ) {
-        if (this.config.env != Environment.PROD) {
-            router.register(this)
-        }
-    }
+    ) { }
 
     @Http.get('/actuator')
 
