@@ -1,4 +1,4 @@
-import { autoInject, ConfigContract, Logger } from 'api-framework';
+import { autoInject, ConfigContract, Logger, Prefix } from 'api-framework';
 import * as Parser from 'json-schema-ref-parser';
 import * as _ from 'path';
 
@@ -17,17 +17,20 @@ export class Swagger {
     public docs = {};
 
 
-    async register(target, prefix = '') {
+    async register(controller, prefix = '') {
 
         const { docs } = this;
-        const metaData = DocMetaData.get(target);
+        const metaData = DocMetaData.get(controller);
 
-        for (const { doc, path, method } of metaData.values()) {
+        const uriPrefix = Prefix.get(controller);
+
+        for (const { doc, path, method } of metaData) {
 
             const data = await (Parser as any).dereference(_.resolve(_.join(prefix, doc)));
+            const formated = `${uriPrefix}${path}`
 
-            docs[path] = docs[path] || {};
-            docs[path][method] = data;
+            docs[formated] = docs[formated] || {};
+            docs[formated][method] = data;
         }
 
     }

@@ -10,24 +10,24 @@ const Document = function (doc) {
 
     return function (target, property) {
 
-        const Http = HttpMetadata.get(target);
-        const meta = Http.get(property);
+        const annonations = HttpMetadata.get(target) || [];
+        for (const route of annonations) {
 
-        if (!meta) return;
+            const value = Reflect.getMetadata(DOC_LIST, target);
+            const list = value as Doc[] || [];
 
-        const value = Reflect.getMetadata(DOC_LIST, target);
-        const list = (value as Map<String, Doc>) || new Map<String, Doc>();
+            list.push({ doc, method: route.httpMethod, path: route.routePath });
 
-        list.set(property, { doc, method: meta.httpMethod, path: meta.routePath });
+            Reflect.defineMetadata(DOC_LIST, list, target);
+        }
 
-        Reflect.defineMetadata(DOC_LIST, list, target);
     }
 
 }
 
 const DocMetaData = {
-    get: function (target): Map<String, Doc> {
-        return Reflect.getMetadata(DOC_LIST, target) || new Map<String, Doc>();
+    get: function (target): Doc[] {
+        return Reflect.getMetadata(DOC_LIST, target) || [];
     }
 }
 
