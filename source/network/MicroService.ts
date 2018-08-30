@@ -2,7 +2,7 @@ import { Eureka as Client } from 'eureka-js-client'
 import { ConfigContract, autoInject, Logger } from 'api-framework';
 
 import resilient = require('resilient');
-import { firstNonLoopback, hostName } from './NicsHelper';
+import { firstNonLoopback } from './NicsHelper';
 
 @autoInject
 export class MicroService {
@@ -11,6 +11,7 @@ export class MicroService {
 
     private instanceId: string;
     private homePageUrl: string;
+
     private instances = new Map<String, Object>();
 
     public instanceConfig: Instance;
@@ -81,8 +82,12 @@ export class MicroService {
 
     }
 
-    getInstance(): Client {
+    get instance(): Client {
         return this.client;
+    }
+
+    get services() {
+        return this.instances;
     }
 
     start() {
@@ -114,7 +119,7 @@ export class MicroService {
         logger.debug(`Fetch Registry: (${Object.keys(apps).length}) services`);
     }
 
-    service(name: string) {
+    get(name: string) {
         const { logger, instances } = this;
 
         if (!instances.has(name)) {
