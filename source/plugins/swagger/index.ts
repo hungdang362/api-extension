@@ -13,6 +13,8 @@ const Document = function (doc) {
         const annonations = HttpMetadata.get(target) || [];
         for (const route of annonations) {
 
+            if (route.property !== property) continue;
+
             const value = Reflect.getMetadata(DOC_LIST, target);
             const list = value as Doc[] || [];
 
