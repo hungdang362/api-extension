@@ -18,7 +18,9 @@ const Document = function (doc) {
             const value = Reflect.getMetadata(DOC_LIST, target);
             const list = value as Doc[] || [];
 
-            list.push({ doc, method: route.httpMethod, path: route.routePath });
+            const path = route.routePath.replace(/\:([a-zA-Z0-9-_]+)/gi, "{$1}");
+
+            list.push({ doc, method: route.httpMethod, path });
 
             Reflect.defineMetadata(DOC_LIST, list, target);
         }

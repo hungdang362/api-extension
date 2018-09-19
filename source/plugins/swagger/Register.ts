@@ -13,11 +13,10 @@ export interface Doc {
 @autoInject
 export class Swagger {
 
-    private prefix: string;
     public docs = {};
 
 
-    async register(controller, prefix = '') {
+    async register(controller, serviceName, prefix = '') {
 
         const { docs } = this;
         const metaData = DocMetaData.get(controller);
@@ -27,7 +26,7 @@ export class Swagger {
         for (const { doc, path, method } of metaData) {
 
             const data = await (Parser as any).dereference(_.resolve(_.join(prefix, doc)));
-            const formated = `${uriPrefix}${path}`
+            const formated = `/${serviceName}${uriPrefix}${path}`
 
             docs[formated] = docs[formated] || {};
             docs[formated][method] = data;
@@ -52,7 +51,9 @@ export function EnableSwagger(prefix = 'source') {
                     return;
                 }
 
-                injector.get(Swagger).register(this, prefix);
+                const config = injector.get(ConfigContract);
+
+                injector.get(Swagger).register(this, config.name, prefix);
             }
         }
     }
