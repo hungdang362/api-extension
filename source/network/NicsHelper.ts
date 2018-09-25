@@ -11,7 +11,7 @@ interface Address {
 }
 
 export function firstNonLoopback(): Address {
-    return _.find(_.flatMapDeep(os.networkInterfaces()), (ifc) => !ifc.internal) as any;
+    return _.find(_.flatMapDeep(os.networkInterfaces()), (ifc) => !ifc.internal && ifc.family === 'IPv4') as any;
 }
 
 export function hostName() {
