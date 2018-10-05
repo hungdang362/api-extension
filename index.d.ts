@@ -69,6 +69,19 @@ declare namespace extenstion {
 
     }
 
+    namespace Authorization {
+        function Secured(...authorities);
+
+        abstract class Session {
+            name: string;
+            authorities: string[];
+            storage: any;
+
+            middleware (): any;
+            is(role: string): boolean;
+        }
+    }
+
 }
 
 export = extenstion

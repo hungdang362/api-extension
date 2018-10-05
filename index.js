@@ -9,3 +9,4 @@ exportAll('./dist/network/MicroService.js');
 
 exports['Swagger'] = require('./dist/plugins/swagger');
 exports['Actuator'] = require('./dist/plugins/actuator');
+exports['Authorization'] = require('./dist/plugins/authorization');
