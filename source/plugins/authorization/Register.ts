@@ -15,20 +15,16 @@ export function Secured(...permissions: string[]) {
 
         const method: Function = descriptor.value;
 
-        if (permissions.length > 0) {
+        descriptor.value = function (...args) {
 
-            descriptor.value = function (...args) {
+            const session: Session = (global as any).__injector.get(Session);
+            const roles = _.keys(session.authorities);
 
-                const session: Session = (global as any).__injector.get(Session);
-                const roles = _.keys(session.authorities);
+            const diff = _.differenceWith(permissions, roles, isEqual.bind(roles));
 
-                const diff = _.differenceWith(permissions, roles, isEqual.bind(roles));
+            if (diff.length == permissions.length) throw new Forbidden();
 
-                if (diff.length == permissions.length) throw new Forbidden();
-
-                method.apply(this, args);
-            }
-
+            method.apply(this, args);
         }
 
     }
