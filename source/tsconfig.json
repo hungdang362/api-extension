@@ -12,6 +12,7 @@
         "strictNullChecks": true,
         "moduleResolution": "node",
         "module": "commonjs",
-        "target": "es2018"
+        "target": "es2018",
+        "skipLibCheck": true
     }
 }
